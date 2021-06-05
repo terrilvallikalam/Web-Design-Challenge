@@ -6,7 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <title>Data</title>
+  <style>
+    table {
+        border-collapse: collapse;
+        border: 2px black solid;
+        font: 12px sans-serif;
+    }
 
+    td {
+        border: 1px black solid;
+        padding: 5px;
+    }
+</style>
   <!-- Bring in our bootstrap stylesheet -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
@@ -40,10 +51,35 @@
           </ul>
         </div>
       </nav>
-
+      <h1>Data</h1>
+      <hr>
+      <p>Data from the used CSV is feature below.</p>
+      <div class="table-responsive">
+        <table class="table">
+          <a class="table" href="cities.htm"></a>
+        </table>
+      </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="d3.min.js?v=3.2.8"></script>
+    <script type="text/javascript"charset="utf-8">
+      d3.text("cities.csv", function(data) {
+          var parsedCSV = d3.csv.parseRows(data);
+
+          var container = d3.select("body")
+              .append("table")
+
+              .selectAll("tr")
+                  .data(parsedCSV).enter()
+                  .append("tr")
+
+              .selectAll("td")
+                  .data(function(d) { return d; }).enter()
+                  .append("td")
+                  .text(function(d) { return d; });
+      });
+  </script>
 </body>
 
 </html>
